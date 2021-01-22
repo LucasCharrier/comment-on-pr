@@ -83,8 +83,8 @@ def main():
         'pull_id': pr.number,
         'branch_name': branch_name
     }
-    if 'cms.authors' in branch_name:
-        pr_info['updatelink'] = 'https://beta.gouv.fr/admin/#/collections/authors/entries/' + branch_name.replace('cms.authors', '')
+    if 'cms/authors/' in branch_name:
+        pr_info['updatelink'] = 'https://beta.gouv.fr/admin/#/collections/authors/entries/' + branch_name.replace('cms/authors/', '')
     new_comment = template.format(**pr_info)
 
     # check if this pull request has a duplicated comment
