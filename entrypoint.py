@@ -85,16 +85,21 @@ def main():
     }
     if 'cms/authors/' in branch_name:
         pr_info['updatelink'] = 'https://beta.gouv.fr/admin/#/collections/authors/entries/' + branch_name.replace('cms/authors/', '')
-    new_comment = template.format(**pr_info)
+    
+    if 'cms/startups' in branch_name:
+        pr_info['updatelink'] = 'https://beta.gouv.fr/admin/#/cms/startups/entries/' + branch_name.replace('cms/startups/', '')
 
-    # check if this pull request has a duplicated comment
-    old_comments = [c.body for c in pr.get_issue_comments()]
-    if new_comment in old_comments:
-        print('This pull request already a duplicated comment.')
-        exit(0)
+    if 'updatelink' in pr_info:
+        new_comment = template.format(**pr_info)
 
-    # add the comment
-    pr.create_issue_comment(new_comment)
+        # check if this pull request has a duplicated comment
+        old_comments = [c.body for c in pr.get_issue_comments()]
+        if new_comment in old_comments:
+            print('This pull request already a duplicated comment.')
+            exit(0)
+
+        # add the comment
+        pr.create_issue_comment(new_comment)
 
 
 if __name__ == '__main__':
